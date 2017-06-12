@@ -1,0 +1,52 @@
+#login {
+  display: block;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 470px;
+  padding: 20px 5px;
+}
+.login-text { color: #0277bd; }
+nav .brand-logo { padding-left: 20px; }
+#card-alert a {
+  background: none;
+  border: none;
+  position: absolute;
+  top: 15px;
+  right: 10px;
+  font-size: 20px;
+  color: #fff;
+  cursor: pointer;
+}
+#card-alert i {
+  font-size: 20px;
+  position: relative;
+  top: 2px;
+  margin-right: 10px;
+}
+.texto-titulo { color: #bdbdbd; }
+#buscaAnuncio .card-panel { padding: 10px 15px; }
+#buscaAnuncio .row { margin-bottom: 0; }
+#buscaAnuncio h4 { margin: 0rem 0 .912rem 0; }
+#buscaAnuncio .input-field { margin-top: 0rem; }
+input[type=text]:focus:not([readonly]), 
+input[type=email]:focus:not([readonly]),
+input[type=password]:focus:not([readonly]) { 
+  border-bottom: 1px solid #039be5 !important;
+  box-shadow: 0 1px 0 0 #039be5 !important;
+}
+input[type=text]:focus:not([readonly])+label,
+input[type=email]:focus:not([readonly])+label,
+input[type=password]:focus:not([readonly])+label {
+  color: #039be5 !important;
+}
+.card-title { font-weight: bold !important; }
+#anuncios #anuncio.card i { 
+  font-size: 20px;
+  position: relative;
+  top: 5px; 
+}
+#anuncios #anuncio.card .row {
+  margin-bottom: 5px !important;
+  margin-top: 5px !important;
+}
+.modal-content form .row { margin-bottom: 10px; }

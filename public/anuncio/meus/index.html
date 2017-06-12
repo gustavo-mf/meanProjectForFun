@@ -1,0 +1,206 @@
+<!-- index.html -->
+<!doctype html>
+ 
+<!-- modulo index -->
+<html ng-app="meus">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Desapega-te.com</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles.css">
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"></script>
+  <script src="meusApp.js"></script>
+  <script src="../../js/angular-locale_pt-br.js"></script>
+</head>
+<!-- controller -->
+<body ng-controller="meusController" class="grey lighten-1">
+  <nav class="light-blue darken-3">
+    <div class="nav-wrapper">
+      <a href="#" class="brand-logo">Desapega-te.com</a>
+      <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <li><a href="/">Home</a></li>
+        <li class="active"><a href="/anuncio/meus">Meus anuncios</a></li>
+        <li><a href="/anuncio">Procurar produtos</a></li>
+      </ul>
+      <ul class="side-nav" id="mobile-demo">
+        <li><a href="/">Home</a></li>
+        <li class="active"><a href="/anuncio/meus">Meus anuncios</a></li>
+        <li><a href="/anuncio">Procurar produtos</a></li>
+      </ul>
+    </div>
+  </nav>
+  <div class="container">
+    <div class="card col s12">
+      <div class="card-content black-text">
+        <div class="row">
+          <div class="input-field col s12 m6">
+            <select class="browser-default" ng-model="buscar" required ng-options="item.nome for item in usuarios">
+              <option value="" selected>Escolha o usuario</option>
+            </select>
+          </div>
+          <div class="input-field col s12 m6">
+            <a class="btn btn-default light-blue darken-3" ng-click="refresh(buscar._id)">Procurar</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <br>
+        <a class="btn btn-default light-blue darken-3" href="#criar">Criar</a>
+      </div>
+    </div>
+    <div class="row" id="anuncios">
+      <div class="col s12 m6 l4" ng-repeat="anuncio in anuncios">
+        <div class="card" id="anuncio">
+          <div class="card-content black-text">
+            <span class="card-title">{{anuncio.titulo}}</span>
+            <div class="row">
+              <p class="col s6">{{anuncio.data_post | date:'dd/MM/yyyy'}}</p>
+              <p class="col s6 right-align">{{anuncio.valor | currency}}</p>    
+            </div>
+            <div class="divider"></div>
+            <div class="row">
+              <p><i class="material-icons">room</i>{{anuncio.local}}</p>
+            </div>
+            <div class="divider"></div>
+            <div class="row">
+              <p>Categoria: {{anuncio.categoria.descricao}}</p>
+              <p>Situação: {{anuncio.situacao}}</p>
+            </div>
+            <div class="divider"></div>
+            <div class="row">{{anuncio.descricao}}</div>
+            <div class="divider"></div>
+            <div class="row">
+              <p>Anunciante: {{anuncio.criador.nome}}</p>
+              <p class="center-align"><i class="material-icons">grade</i><i class="material-icons">grade</i><i class="material-icons">grade</i></p> 
+            </div>
+            <div class="row">
+              <a class="btn btn-default light-blue darken-3" href="#editar" ng-click="loadEdit(anuncio)">Editar</a>  
+            </div>
+            <div class="row">
+              <a class="btn btn-default light-blue darken-3" ng-click="deletarAnuncio(anuncio._id)">Deletar</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Modal Criar anuncio -->
+    <div id="criar" class="modal">
+      <div class="modal-content">
+        <form ng-submit="criarAnuncio()" name="novoForm">
+          <div class="row">
+            <div class="input-field col s12 m6">
+              <h4 class="texto-titulo">Criar anuncio</h4>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s12 m6">
+              <input type="text" ng-model="novoAnun.titulo" name="titulo" required/>
+              <label for="titulo">Titulo</label>
+            </div>
+            <div class="input-field col s12 m6">
+              <input type="text" ng-model="novoAnun.descricao" name="descricao" required/>
+              <label for="descricao">Descrição</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s12 m6">
+              <label style="position: initial;">Selecione o usuario</label>
+              <select class="browser-default" ng-model="novoAnun.criador" required ng-options="item.nome for item in usuarios">
+                <option value="" selected>Escolha o usuario</option>
+              </select>
+            </div>
+            <div class="input-field col s12 m6">
+              <input type="text" ng-model="novoAnun.local" name="local" required/>
+              <label for="local">Local</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s12 m6">
+              <label style="position: initial;">Selecione a categoria</label>
+              <select class="browser-default" ng-model="novoAnun.tipo" required ng-options="item.descricao for item in findTipos">
+                <option value="" selected>Escolha a categoria</option>
+              </select>
+            </div>
+            <div class="input-field col s12 m6">
+              <input type="number" ng-model="novoAnun.valor" name="valor" step="0.01"  required/>
+              <label for="valor">valor</label>
+            </div>
+          </div>
+          <div class="row right-align">
+            <div class="input-field col s12">
+              <button class="btn light-blue darken-3" type="submit">Criar</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <!-- Modal Atualizar anuncio -->
+    <div id="editar" class="modal">
+      <div class="modal-content">
+        <form ng-submit="editarAnuncio(edit)">
+          <div class="row">
+            <div class="input-field col s12 m6">
+              <h4 class="texto-titulo">Atualizar anuncio</h4>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s12 m6">
+              <span>Titulo</span>
+              <input type="text" ng-model="edit.titulo" required/>
+              
+            </div>
+            <div class="input-field col s12 m6">
+              <span>Descrição</span>
+              <input type="text" ng-model="edit.descricao" required/>
+              
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s12 m6">
+              <span>Criador</span>
+              <input type="text" ng-model="edit.criador.nome" readonly="" />
+            </div>
+            <div class="input-field col s12 m6">
+              <span>Local</span>
+              <input type="text" ng-model="edit.local" required/>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s12 m6">
+              <span style="position: initial;">Selecione a categoria</span>
+              <select class="browser-default" ng-model="edit.tipo" ng-options="item.descricao for item in findTipos">
+                <option value="" selected>Escolha a categoria</option>
+              </select>
+            </div>
+            <div class="input-field col s12 m6">
+              <span>valor</span>
+              <input type="text" ng-model="edit.valor" required/>
+            </div>
+          </div>
+          <div class="row right-align">
+            <div class="input-field col s12">
+              <button class="btn light-blue darken-3" type="submit">Atualizar</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+  </div> 
+  <script type="text/javascript">
+    $( document ).ready(function(){
+      $(".button-collapse").sideNav();
+      $('.modal').modal();
+    })
+  </script>
+</body>
+</html>

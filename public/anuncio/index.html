@@ -1,0 +1,132 @@
+<!-- index.html -->
+<!doctype html>
+ 
+<!-- modulo index -->
+<html ng-app="anuncio">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Desapega-te.com</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"></script>
+  <script src="anuncioApp.js"></script>
+  <script src="../js/angular-locale_pt-br.js"></script>
+</head>
+<!-- controller -->
+
+<body ng-controller="anuncioController" class="grey lighten-1">
+  <nav class="light-blue darken-3">
+    <div class="nav-wrapper">
+      <a href="#" class="brand-logo">Desapega-te.com</a>
+      <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <li><a href="/">Home</a></li>
+        <li><a href="/anuncio/meus">Meus anuncios</a></li>
+        <li class="active"><a href="/anuncio">Procurar produtos</a></li>
+      </ul>
+      <ul class="side-nav" id="mobile-demo">
+        <li><a href="/">Home</a></li>
+        <li><a href="/anuncio/meus">Meus anuncios</a></li>
+        <li class="active"><a href="/anuncio">Procurar produtos</a></li>
+      </ul>
+    </div>
+  </nav>
+  <div class="container">
+    <div class="col s12 m5" id="buscaAnuncio">
+      <div class="card-panel white">
+        <form novalidate class="busca">
+          <div class="row">
+            <div class="input-field col s12 m6">
+              <h4 class="texto-titulo">Procurar</h4>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s12 m6">
+              <input type="text" ng-model="findAnun.titulo" />
+              <label for="titulo">Titulo</label>
+            </div>
+            <div class="input-field col s12 m6">
+              <input type="text" ng-model="findAnun.descricao" />
+              <label for="descricao">Descrição</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s12 m6">
+              <input type="text" ng-model="findAnun.criador" />
+              <label for="criador">Criador</label>
+            </div>
+            <div class="input-field col s6 m3">
+              <input type="text" ng-model="findAnun.valorMaior" />
+              <label for="apartirde">a partir de</label>
+            </div>
+            <div class="input-field col s6 m3">
+              <input type="text" ng-model="findAnun.valorMenor" />
+              <label for="ate">até</label> 
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s6">
+              <label style="position: initial;">Selecione a categoria</label>
+              <select class="browser-default" ng-model="findAnun.tipo" ng-options="item.descricao for item in findTipos">
+                <option value="" selected>Choose your option</option>
+              </select>
+            </div>
+          </div>
+          <div class="row right-align">
+            <div class="input-field col s12">
+              <a class="btn light-blue darken-3" ng-click="findAnuncio()"><i class="material-icons">search</i></a>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="divider"></div>
+    <div class="row" id="anuncios">
+      <div class="col s12 m6 l4" ng-repeat="anuncio in anuncios">
+        <div class="card" id="anuncio">
+          <div class="card-content black-text">
+            <span class="card-title">{{anuncio.titulo}}</span>
+            <div class="row">
+              <p class="col s6">{{anuncio.data_post | date:'dd/MM/yyyy'}}</p>
+              <p class="col s6 right-align">{{anuncio.valor | currency}}</p>    
+            </div>
+            <div class="divider"></div>
+            <div class="row">
+              <p><i class="material-icons">room</i>{{anuncio.local}}</p>
+            </div>
+            <div class="divider"></div>
+            <div class="row">
+              <p>Categoria: {{anuncio.categoria.descricao}}</p>
+              <p>Situação: {{anuncio.situacao}}</p>
+            </div>
+            <div class="divider"></div>
+            <div class="row">{{anuncio.descricao}}</div>
+            <div class="divider"></div>
+            <div class="row">
+              <p>Anunciante: {{anuncio.criador.nome}}</p>
+              <p class="center-align"><i class="material-icons">grade</i><i class="material-icons">grade</i><i class="material-icons">grade</i></p> 
+            </div>
+          </div>
+          <div class="card-action center-align">
+            <a class="btn btn-default light-blue darken-3" ng-click="comprar(anuncio._id)">Comprar</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script type="text/javascript">
+    $( document ).ready(function(){
+      $('select').material_select();
+      $(".button-collapse").sideNav();
+      $("#card-alert > .close").click(function(){
+        console.log('hello');
+        $(this).closest("#card-alert").fadeOut("slow")
+      });
+    })
+  </script>
+</body>
+</html>

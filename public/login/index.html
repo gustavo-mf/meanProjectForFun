@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html ng-app="usuario">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Desapega-te</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"></script>
+  <script src="loginApp.js"></script>
+</head>
+<body ng-controller="usuarioController" class="grey lighten-1">
+  <div class="container center-align" id="login">
+    <h1 class="login-text">Desapega-te</h1>
+    <h5 class="login-text">Por favor, logue na sua conta.</h5>
+    <div class="card-panel grey lighten-4">
+      <form class="col s12" name="loginForm" ng-submit="login()">
+        <div class='row'>
+          <div class='col s12'>
+          </div>
+        </div>
+        <div class='row'>
+          <div class='input-field col s12'>
+            <input class='validate' name="email" type='email' ng-model="user.email" required />
+            <label for='email'>Insira seu e-mail</label>
+          </div>
+        </div>
+        <div class='row'>
+          <div class='input-field col s12'>
+            <input class='validate' type='password' name="senha" ng-model="user.senha" required />
+            <label for='password'>Insira sua senha</label>
+          </div>
+          <label style='float: right;'>
+            <a class='blue-text' href='#!'><b>Esqueceu a senha?</b></a>
+          </label>
+        </div>
+        <div class='row'>
+          <div class='input-field col s12'>
+            <button class='btn light-blue darken-3' type="submit">Entrar</button>
+          </div>
+        </div>
+      </form>
+    </div>
+    <a href="#!">Criar conta</a>
+  </div>
+</body>
+</html>
